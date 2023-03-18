@@ -22,3 +22,5 @@ stages:
       - artifcats/split_data_dir/train.csv
       - artifcats/split_data_dir/test.csv
 
+      
+
