@@ -37,6 +37,8 @@ stages:
       - base.random_state
     outs: 
       - artifcats/model_dir/ElasticNet.model
+
+      
    
 
 
