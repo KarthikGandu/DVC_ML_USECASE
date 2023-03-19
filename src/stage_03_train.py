@@ -1,6 +1,7 @@
 from utils.all_utils import read_yaml
 import argparse
 import os
+import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import ElasticNet
@@ -32,6 +33,22 @@ def split_data(config_path, params_path):
     lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=random_state)
     lr.fit(train_x, train_y)
     print("Done training")
+
+    model_dir = config["artifacts"]["model_dir"]
+    model_filename = config["artifacts"]["model_filename"]
+    model_dir_path = os.path.join(artifcats_dir, model_dir)
+    create_directory(dirs=[model_dir_path])
+    model_path = os.path.join(model_dir_path, model_filename)
+
+    os.makedirs(model_dir_path, exist_ok=True)
+    joblib.dump(lr, model_path)
+    print("Done saving model")
+
+
+def create_directory(dirs: list):
+    for dir_path in dirs:
+        os.makedirs(dir_path, exist_ok=True)
+        print(f"created directory: {dir_path}")
 
 
 if __name__ == "__main__":
